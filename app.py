@@ -22,9 +22,26 @@ DATA_FILE = Path(__file__).parent / "retail_sales.csv"
 st.markdown(
     """
     <style>
-      .stApp { background: #f6f8fc; }
-      [data-testid="stSidebar"] { background: #101a2d; }
+      /* Keep the dashboard readable regardless of the viewer's Streamlit theme. */
+      .stApp, [data-testid="stAppViewContainer"] {
+        background: #f6f8fc !important; color: #1f2937 !important;
+      }
+      [data-testid="stAppViewContainer"] .main .block-container {
+        color: #1f2937 !important;
+      }
+      [data-testid="stSidebar"] { background: #101a2d !important; }
       [data-testid="stSidebar"] * { color: #f3f6fc !important; }
+      /* The uploader drop-zone is light, so use dark text inside it. */
+      [data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] {
+        background: #f8fafc !important; border: 1px dashed #9aa9bd !important;
+      }
+      [data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] * {
+        color: #1f2937 !important;
+      }
+      [data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] button {
+        background: #e7eef7 !important; color: #1f2937 !important;
+        border: 1px solid #aab8ca !important;
+      }
       .hero {
         padding: 1.35rem 1.6rem; border-radius: 18px;
         background: linear-gradient(120deg, #10213d 0%, #174a72 60%, #287f92 100%);
@@ -38,11 +55,15 @@ st.markdown(
         font-size: .82rem; color: #ffffff;
       }
       div[data-testid="stMetric"] {
-        background: #ffffff; border: 1px solid #e4eaf3;
+        background: #ffffff !important; border: 1px solid #e4eaf3;
         padding: 14px 16px; border-radius: 14px;
         box-shadow: 0 3px 14px rgba(25,45,75,.04);
       }
-      div[data-testid="stMetricLabel"] { color: #52627a; }
+      div[data-testid="stMetric"] * { color: #172b4d !important; }
+      div[data-testid="stMetricLabel"] { color: #52627a !important; }
+      [data-testid="stMarkdownContainer"], [data-testid="stMarkdownContainer"] p,
+      [data-testid="stMarkdownContainer"] li, [data-testid="stCaptionContainer"],
+      [data-testid="stText"] { color: #263445; }
       .section-caption { color: #607087; font-size: .93rem; }
       .footer {
         text-align: center; color: #718096; font-size: .85rem;
@@ -226,7 +247,7 @@ with c1:
         title="Revenue and profit over time", height=370,
         margin=dict(l=10, r=10, t=55, b=10),
         legend=dict(orientation="h", y=1.12),
-        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="white",
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="white", font_color="#263445",
         yaxis_title="Amount (₹)", xaxis_title="Month",
     )
     fig.update_xaxes(showgrid=False)
@@ -244,7 +265,7 @@ with c2:
     fig.update_layout(
         height=370, margin=dict(l=10, r=35, t=55, b=10),
         coloraxis_showscale=False, paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="white", xaxis_title="Revenue (₹)", yaxis_title="",
+        plot_bgcolor="white", font_color="#263445", xaxis_title="Revenue (₹)", yaxis_title="",
     )
     fig.update_xaxes(showgrid=True, gridcolor="#e8edf4")
     fig.update_yaxes(showgrid=False, autorange="reversed")
@@ -259,7 +280,7 @@ with c3:
     )
     fig.update_traces(textposition="outside", cliponaxis=False)
     fig.update_layout(height=330, showlegend=False, margin=dict(l=10, r=20, t=55, b=10),
-                      paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="white",
+                      paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="white", font_color="#263445",
                       yaxis_title="Revenue (₹)")
     fig.update_yaxes(gridcolor="#e8edf4")
     st.plotly_chart(fig, use_container_width=True)
@@ -273,7 +294,7 @@ with c4:
     )
     fig.update_traces(textposition="inside", textinfo="percent+label")
     fig.update_layout(height=330, margin=dict(l=10, r=10, t=55, b=10),
-                      paper_bgcolor="rgba(0,0,0,0)", legend_title_text="")
+                      paper_bgcolor="rgba(0,0,0,0)", legend_title_text="", font_color="#263445")
     st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("## Key findings")
